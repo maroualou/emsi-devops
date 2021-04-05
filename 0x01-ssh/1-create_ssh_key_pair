@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #this script create a ssh key with a passphrase betty and 4906 bit
-ssh-keygen -f holberton -t rsa -b 4906 -N betty 
+ssh-keygen -f holberton -t rsa -b 4096 -N betty 
