@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#this script install nginx on my server ubuntu with the listening on port 80 and editing the #index file to return "Holberton School"
+sudo apt-get  update -y 
+sudo apt-get install nginx -y
+sudo chmod a+rw /var/www/html/index*
+echo "Holberton School for the win!" > /var/www/html/index*
+sudo awk '{if (match($1,var)) gsub(/[0-9]+/,"80");print $0;}' var="listen" /etc/nginx/sites-enabled/default > tmp && sudo mv tmp /etc/nginx/sites-enabled/default
+sudo service nginx reload 
+
