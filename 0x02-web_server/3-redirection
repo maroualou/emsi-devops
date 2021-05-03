@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#this script is installing nginx and add a 301 rediraction to the default configuration file
+sudo apt-get update -y
+sudo apt-get install nginx -y
+echo "Holberton School" |sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+new_string="server_name _;\nlocation \/redirect_me {\nreturn 301 'https:\/\/www.youtube.com\/watch?v=lTRiuFIWV54';\n}\n"
+sudo sed -i "s/server_name _;/${new_string}/" /etc/nginx/sites-enabled/default
+sudo service nginx restart
+
