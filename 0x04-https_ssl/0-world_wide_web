@@ -1,19 +1,15 @@
+
 #!/usr/bin/env bash
-# install haproxy and congigure it
-sudo apt-get -y install software-properties-common
-sudo add-apt-repository -y ppa:vbernat/haproxy-2.0
-sudo apt-get update -y
-sudo apt-get -y install haproxy=2.0.\*
-STR=$'\n
-frontend http_front\n
-    \tbind *:80\n
-    \tdefault_backend web-backend\n
-backend web-backend\n
-    \tbalance roundrobin\n
-    \tserver 3117-web-01 35.237.115.29:80 \n
-    server 3117-web-02  54.234.48.216:80 '
-echo "$STR" |sudo tee -a /etc/haproxy/haproxy.cfg
-STR1=$'\nENABLED=1'
-echo "$STR1" |sudo tee -a /etc/default/haproxy
-sudo service haproxy restart
+#listing A records informations 
+Function () {   
+    if [ "$#" -eq 2 ]; then
+        dig $2.$1 | grep -A1 'ANSWER SECTION:' | awk 'FNR==2{print ( "The subdomain " v1 " is a " $4 " record and points to " $5 )}' v1=$2
+    elif [ "$#" -eq 1 ]; then
+        dig www.$1 | grep -A1 'ANSWER SECTION:' |  awk 'FNR==2{print ( "The subdomain www is a " $4 " record and points to " $5 )}'
+        dig lb-01.$1 | grep -A1 'ANSWER SECTION:' | awk 'FNR==2{print ( "The subdomain lb-01 is a " $4 " record and points to " $5 )}'
+        dig web-01.$1 | grep -A1 'ANSWER SECTION:' |awk 'FNR==2{print ( "The subdomain web-01 is a " $4 " record and points to " $5 )}'
+        dig web-02.$1 | grep -A1 'ANSWER SECTION:' | awk 'FNR==2{print ( "The subdomain web-02 is a " $4 " record and points to " $5 )}'
+    fi
+}
+Function $1 $2
 
