@@ -36,7 +36,7 @@ defaults
 
 frontend https_front
 
-        bind *:443 ssl crt /etc/haproxy/certs/www.check-it.tech.pem
+        bind *:443 ssl crt /etc/haproxy/certs/www.go-easy.tech.pem
         http-request redirect scheme https unless { ssl_fc }
         default_backend web-backend
 
