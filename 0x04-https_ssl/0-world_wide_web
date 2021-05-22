@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 #listing A records informations 
 Function () {   
