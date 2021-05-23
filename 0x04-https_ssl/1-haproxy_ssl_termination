@@ -34,19 +34,13 @@ defaults
         errorfile 504 /etc/haproxy/errors/504.http
 
 
-frontend www-http
-    bind   *:80
-    reqadd X-Forwarded-Proto:\ http
-    default_backend www-backend
-
 frontend www-https
+    bind *:80
     bind   *:443 ssl crt /etc/haproxy/certs/www.go-easy.tech.pem
-    reqadd X-Forwarded-Proto:\ https
     default_backend www-backend
 
 backend www-backend
-    balance  roundrobin
-    redirect scheme https if !{ ssl_fc }
+        balance  roundrobin
         server 3117-web-01 35.237.115.29:80 check
         server 3117-web-02 54.234.48.216:80 check
         
