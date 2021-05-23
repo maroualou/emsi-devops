@@ -40,7 +40,7 @@ frontend www-http
     default_backend www-backend
 
 frontend www-https
-    bind   *:443 ssl crt /etc/haproxy/certs/www.fathiyoussef9.tech.pem
+    bind   *:443 ssl crt /etc/haproxy/certs/www.go-easy.tech.pem
     reqadd X-Forwarded-Proto:\ https
     default_backend www-backend
 
